@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { ButtonComponent } from '../../../shared/button/button.component';
 import { ControlComponent } from '../../../shared/control/control.component';
 import { FormsModule } from '@angular/forms';
@@ -12,10 +12,10 @@ import { FormsModule } from '@angular/forms';
 })
 export class NewTicketComponent {
   @ViewChild('form') form?: ElementRef<HTMLFormElement>;
+  @Output() add = new EventEmitter<{title: string; text: string}>();
 
   onSubmit(title: string, ticketText: string) {
-    console.log('Title: ' + title);
-    console.log('TicketText: ' + ticketText);
+    this.add.emit({title: title, text: ticketText});
 
     this.form?.nativeElement.reset();
   }
