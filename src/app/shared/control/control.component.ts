@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, ContentChildren, ElementRef, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-control',
@@ -8,9 +8,15 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
   styleUrl: './control.component.css',
   encapsulation: ViewEncapsulation.None,
   host: {
-    class: 'control'
+    class: 'control',
+    '(click)': 'onClick()'
   }
 })
 export class ControlComponent {
   @Input({required: true}) label!: string;
+  @ContentChildren('input') private control ?: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
+
+  onClick() {
+    console.log(this.control)
+  }
 }
