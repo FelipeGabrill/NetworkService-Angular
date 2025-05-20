@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { Ticket } from '../ticket.model';
 
 @Component({
@@ -10,4 +10,15 @@ import { Ticket } from '../ticket.model';
 })
 export class TicketComponent {
   @Input({required:true}) data!: Ticket;
+  @Output() close = new EventEmitter();
+  detailsVisible = signal(false);
+
+  onToggleDetails() {
+    this.detailsVisible.set(!this.detailsVisible());
+  }
+  
+  onMarkAsCompleted() {
+    this.close.emit();
+  }
+
 }
